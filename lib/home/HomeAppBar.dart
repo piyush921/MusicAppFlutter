@@ -28,7 +28,7 @@ class HomeAppBar extends StatelessWidget {
             ),
             const Row(
               children: [
-                Icon(Icons.notifications_outlined, color: Colors.white,),
+                Icon(Icons.notifications_outlined, color: Colors.white),
                 SizedBox(width: 10),
                 Icon(Icons.person_2_rounded, color: Colors.white)
               ],
