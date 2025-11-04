@@ -1,23 +1,26 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_project/home/HomeAppBar.dart';
-import 'package:flutter_learn_project/home/HomeCategorySlider.dart';
-import 'package:flutter_learn_project/home/HomeFavourites.dart';
-import 'package:flutter_learn_project/home/HomeImageSlider.dart';
-import 'package:flutter_learn_project/home/HomeQuickPicks.dart';
-import 'package:flutter_learn_project/home/homeArtist.dart';
+import 'package:flutter_learn_project/home/ui/HomeAppBar.dart';
+import 'package:flutter_learn_project/home/ui/HomeCategorySlider.dart';
+import 'package:flutter_learn_project/home/ui/HomeFavourites.dart';
+import 'package:flutter_learn_project/home/ui/HomeImageSlider.dart';
+import 'package:flutter_learn_project/home/ui/HomeQuickPicks.dart';
+import 'package:flutter_learn_project/home/ui/homeArtist.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class HomeScreen extends StatefulWidget {
+import '../home_view_model.dart';
+
+class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
-  State<HomeScreen> createState() {
-    return _HomeScreen();
-  }
-}
+  Widget build(BuildContext context, WidgetRef ref) {
+    final homeState = ref.watch(homeViewModelProvider);
 
-class _HomeScreen extends State<HomeScreen> {
-  @override
-  Widget build(BuildContext context) {
+
+    ref.read(homeViewModelProvider.notifier).refresh();
+    print(homeState.value);
+
+
     return Scaffold(
       body: Stack(
         children: [

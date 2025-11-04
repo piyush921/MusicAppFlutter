@@ -1,19 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_learn_project/home/home.dart';
+import 'package:flutter_learn_project/home/ui/home.dart';
+import 'package:flutter_learn_project/library.dart';
 import 'package:flutter_learn_project/search.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-void main() {
+Future<void> main() async {
   WidgetsBinding widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
+  await dotenv.load(fileName: "assets/.env");
+
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
     statusBarColor: Colors.blue, // desired color
-    statusBarIconBrightness: Brightness.light, // light icons for dark background
+    statusBarIconBrightness:
+        Brightness.light, // light icons for dark background
   ));
+  runApp(const ProviderScope(child: MyApp()));
 
-  runApp(const MyApp());
+  FlutterNativeSplash.remove();
 }
 
 class MyApp extends StatefulWidget {
@@ -40,7 +47,7 @@ class _MyAppState extends State<MyApp> {
   final List<Widget> _pages = [
     const HomeScreen(),
     const SearchScreen(),
-    const Center(child: Text("Library"))
+    const LibraryScreen()
   ];
 
   void onItemTapped(int index) {

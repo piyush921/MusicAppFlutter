@@ -1,7 +1,7 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_learn_project/home/HomeAppBar.dart';
+import 'package:flutter_learn_project/home/ui/HomeAppBar.dart';
 
 class SearchScreen extends StatefulWidget {
   const SearchScreen({super.key});
