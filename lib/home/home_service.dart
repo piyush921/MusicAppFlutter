@@ -1,3 +1,4 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import '../../../core/network/api_client.dart';
 import 'home_model.dart';
 
@@ -6,9 +7,16 @@ class HomeService {
 
   HomeService(this.apiClient);
 
-  Future<List<HomeItem>> fetchHomeData() async {
-    final data = await apiClient.get('movie/now_playing?language=en-US&page=1'); // Example endpoint
-    final List<dynamic> jsonList = data;
-    return jsonList.map((e) => HomeItem.fromJson(e)).toList();
+  Future<MovieResponse> fetchHomeData() async {
+    final headers = {
+      'Content-Type': 'application/json',
+      'Authorization': 'Bearer ${dotenv.env['API_READ_ACCESS_TOKEN']}',
+    };
+
+    final data = await apiClient.get(
+        'movie/now_playing?language=en-US&page=1',
+        headers: headers
+    );
+    return MovieResponse.fromJson(data);
   }
 }

@@ -14,12 +14,13 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeState = ref.watch(homeViewModelProvider);
-
+    /*final homeState = ref.watch(homeViewModelProvider);
 
     ref.read(homeViewModelProvider.notifier).refresh();
-    print(homeState.value);
+    print("data: ${homeState.value}");*/
 
+    final homeState = ref.watch(homeViewModelProvider);
+    print("home response: ${homeState.value?.page}");
 
     return Scaffold(
       body: Stack(

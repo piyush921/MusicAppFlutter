@@ -10,11 +10,11 @@ final homeServiceProvider = Provider<HomeService>((ref) {
 
 // ViewModel Provider
 final homeViewModelProvider =
-AsyncNotifierProvider<HomeViewModel, List<HomeItem>>(HomeViewModel.new);
+AsyncNotifierProvider<HomeViewModel, MovieResponse>(HomeViewModel.new);
 
-class HomeViewModel extends AsyncNotifier<List<HomeItem>> {
+class HomeViewModel extends AsyncNotifier<MovieResponse> {
   @override
-  Future<List<HomeItem>> build() async {
+  Future<MovieResponse> build() async {
     final service = ref.read(homeServiceProvider);
     return await service.fetchHomeData();
   }
