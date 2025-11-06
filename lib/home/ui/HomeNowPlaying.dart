@@ -1,34 +1,26 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_learn_project/home/home_model.dart';
 
 class HomeQuickPicks extends StatelessWidget {
-  const HomeQuickPicks({super.key});
+  final List<Movie> items;
+
+  const HomeQuickPicks({super.key, required this.items});
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
         child: Column(children: [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 10),
+      const Padding(
+        padding: EdgeInsets.symmetric(horizontal: 10),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            const Text('Quick Picks',
+            Text('Now Playing',
                 style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 20,
-                    color: Colors.white)),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-              decoration: BoxDecoration(
-                color: Colors.transparent,
-                border: Border.all(color: Colors.white),
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: const Text(
-                'Play All',
-                style: TextStyle(color: Colors.white, fontSize: 12),
-              ),
-            ),
+                    color: Colors.white))
           ],
         ),
       ),
@@ -39,12 +31,12 @@ class HomeQuickPicks extends StatelessWidget {
         child: GridView.builder(
           scrollDirection: Axis.horizontal,
           gridDelegate: const SliverGridDelegateWithMaxCrossAxisExtent(
-            maxCrossAxisExtent: 70,
+            maxCrossAxisExtent: 100,
             mainAxisSpacing: 12,
             crossAxisSpacing: 12,
             childAspectRatio: 0.3, // Adjusted to give more width
           ),
-          itemCount: 16,
+          itemCount: items.length,
           padding: const EdgeInsets.symmetric(horizontal: 10),
           itemBuilder: (context, index) {
             return Container(
@@ -64,36 +56,50 @@ class HomeQuickPicks extends StatelessWidget {
                           height: 50,
                           child: ClipRRect(
                             borderRadius: BorderRadius.circular(6),
-                            child: Image.asset(
-                              'assets/thumb.jpg',
+                            child: Image.network(
+                              '${dotenv.env['IMAGE_BASE_URL']}${items[index].posterPath}',
                               fit: BoxFit.cover,
+                              loadingBuilder: (context, child, loadingProgress) {
+                                if (loadingProgress == null) return child;
+                                return const Center(
+                                  child: CircularProgressIndicator(strokeWidth: 2),
+                                );
+                              },
+                              errorBuilder: (context, error, stackTrace) {
+                                print("error loading image: $error");
+                                return const Stack(
+                                  children: [
+                                    Icon(Icons.broken_image)
+                                  ],
+                                );
+                              },
                             ),
                           ),
                         ),
                         const SizedBox(width: 8),
                         // Text column
-                        const Expanded(
+                        Expanded(
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Title',
-                                style: TextStyle(color: Colors.white, fontSize: 12),
+                                items[index].title,
+                                style: const TextStyle(color: Colors.white, fontSize: 12),
                                 overflow: TextOverflow.ellipsis,
                               ),
                               Row(
                                 children: [
-                                  Icon(
+                                  const Icon(
                                     Icons.verified,
                                     size: 16,
                                     color: Colors.white,
                                   ),
-                                  SizedBox(width: 6),
+                                  const SizedBox(width: 6),
                                   Expanded(
                                     child: Text(
-                                      'Author name',
-                                      style: TextStyle(color: Colors.grey, fontSize: 12),
+                                      items[index].releaseDate,
+                                      style: const TextStyle(color: Colors.grey, fontSize: 12),
                                       overflow: TextOverflow.ellipsis,
                                     ),
                                   ),

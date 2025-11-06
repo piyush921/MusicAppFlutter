@@ -1,26 +1,5 @@
-/*class HomeItem {
-  final int id;
-  final String title;
-  final String description;
-
-  HomeItem({
-    required this.id,
-    required this.title,
-    required this.description,
-  });
-
-  factory HomeItem.fromJson(Map<String, dynamic> json) {
-    return HomeItem(
-      id: json['id'],
-      title: json['title'],
-      description: json['body'] ?? '',
-    );
-  }
-}*/
-
 import 'dart:convert';
 
-/// Root-level model for the API response
 class MovieResponse {
   final Dates dates;
   final int page;

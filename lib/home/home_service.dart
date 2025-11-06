@@ -7,14 +7,14 @@ class HomeService {
 
   HomeService(this.apiClient);
 
-  Future<MovieResponse> fetchHomeData() async {
+  Future<MovieResponse> fetchNowPlayingData() async {
     final headers = {
       'Content-Type': 'application/json',
       'Authorization': 'Bearer ${dotenv.env['API_READ_ACCESS_TOKEN']}',
     };
 
     final data = await apiClient.get(
-        'movie/now_playing?language=en-US&page=1',
+        '/movie/now_playing?language=en-US&page=1',
         headers: headers
     );
     return MovieResponse.fromJson(data);

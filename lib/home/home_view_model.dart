@@ -16,14 +16,14 @@ class HomeViewModel extends AsyncNotifier<MovieResponse> {
   @override
   Future<MovieResponse> build() async {
     final service = ref.read(homeServiceProvider);
-    return await service.fetchHomeData();
+    return await service.fetchNowPlayingData();
   }
 
   Future<void> refresh() async {
     state = const AsyncLoading();
     state = await AsyncValue.guard(() async {
       final service = ref.read(homeServiceProvider);
-      return await service.fetchHomeData();
+      return await service.fetchNowPlayingData();
     });
   }
 }

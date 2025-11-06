@@ -11,10 +11,8 @@ class ApiClient {
     final response = await http.get(url, headers: headers);
 
     if (response.statusCode == 200) {
-      print("response success: ${response.statusCode}");
       return jsonDecode(response.body);
     } else {
-      print("response error: ${response.statusCode}");
       throw Exception('Failed to load data: ${response.statusCode}');
     }
   }
