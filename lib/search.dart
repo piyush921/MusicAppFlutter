@@ -18,11 +18,14 @@ class _SearchScreen extends State<SearchScreen> {
     return Scaffold(
         body: Stack(
       children: [
-        Image.asset(
-          'assets/gradient.png',
-          fit: BoxFit.fill,
-          width: double.infinity,
-          height: double.infinity,
+        Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              colors: [Color(0xFF003A53), Color(0xFF000000)],
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+            ),
+          ),
         ),
         SingleChildScrollView(
           child: Column(

@@ -16,66 +16,49 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final homeState = ref.watch(homeViewModelProvider);
-
-    return switch (homeState) {
-      AsyncData(:final value) => Scaffold(
-          body: Stack(
-            children: [
-              // Background gradient image
-              Image.asset(
-                'assets/gradient.png',
-                fit: BoxFit.fill,
-                width: double.infinity,
-                height: double.infinity,
+    return Scaffold(
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF003A53), Color(0xFF000000)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
               ),
-              SingleChildScrollView(
-                  child: Column(
-                children: [
-                  // Top app bar
-                  const HomeAppBar(),
-                  // Horizontal category list
-                  const HomeCategorySlider(),
-                  const SizedBox(height: 30),
-                  HomeQuickPicks(items: value.results),
-                  const SizedBox(height: 20),
-                  const Row(
-                    children: [
-                      SizedBox(width: 10,),
-                      Text('Popular',
-                          style: TextStyle(
-                              fontWeight: FontWeight.bold,
-                              fontSize: 20,
-                              color: Colors.white)),
-                    ],
-                  ),
-                  const SizedBox(height: 10),
-                  const HomeImageSlider(),
-                  const SizedBox(height: 30),
-                  const HomeArtist(),
-                  const SizedBox(height: 30),
-                  const HomeFavourites(),
-                  const SizedBox(height: 50),
-                ],
-              )),
-            ],
-          ),
-        ),
-      AsyncError(:final error, :final stackTrace) => Text('error: $error'),
-      _ => Shimmer(
-          duration: const Duration(seconds: 1),
-          interval: const Duration(seconds: 1),
-          color: Colors.blueGrey,
-          enabled: true,
-          direction: const ShimmerDirection.fromLTRB(),
-          child: Container(
-            height: 50,
-            decoration: BoxDecoration(
-              color: Colors.blueGrey.withValues(alpha: 0.1),
-              borderRadius: BorderRadius.circular(8),
             ),
           ),
-        )
-    };
+          const SingleChildScrollView(
+              child: Column(
+            children: [
+              HomeAppBar(),
+              //HomeCategorySlider(),
+              SizedBox(height: 30),
+              HomeNowPlaying(),
+              SizedBox(height: 20),
+              Row(
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Text('Popular',
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 20,
+                          color: Colors.white)),
+                ],
+              ),
+              SizedBox(height: 10),
+              //HomeImageSlider(),
+              SizedBox(height: 30),
+              //HomeArtist(),
+              SizedBox(height: 30),
+              //HomeFavourites(),
+              SizedBox(height: 50),
+            ],
+          )),
+        ],
+      ),
+    );
   }
 }

@@ -17,11 +17,14 @@ class _LibraryScreen extends State<LibraryScreen> {
     return SingleChildScrollView(
       child: Stack(
         children: [
-          Image.asset(
-            'assets/gradient.png',
-            fit: BoxFit.fill,
-            width: double.infinity,
-            height: MediaQuery.of(context).size.height,
+          Container(
+            decoration: const BoxDecoration(
+              gradient: LinearGradient(
+                colors: [Color(0xFF003A53), Color(0xFF000000)],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
+            ),
           ),
           Column(
             children: [

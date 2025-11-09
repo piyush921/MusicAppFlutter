@@ -26,7 +26,6 @@ dev_dependencies:
 
 flutter:
   assets:
-    - assets/gradient.png
     - assets/logo.png
     - assets/logo1.png
     - assets/logo_with_text.png
